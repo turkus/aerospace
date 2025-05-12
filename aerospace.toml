@@ -1,0 +1,147 @@
+# Reference: https://github.com/i3/i3/blob/next/etc/config
+
+# i3 doesn't have "normalizations" feature that why we disable them here.
+# But the feature is very helpful.
+# Normalizations eliminate all sorts of weird tree configurations that don't make sense.
+# Give normalizations a chance and enable them back.
+enable-normalization-flatten-containers = false
+enable-normalization-opposite-orientation-for-nested-containers = false
+
+# Mouse follows focus when focused monitor changes
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+
+[mode.main.binding]
+ctrl-cmd-l = '''exec-and-forget osascript -e '
+tell application "System Events" to sleep
+' '''
+
+ctrl-w = '''exec-and-forget osascript -e '
+  tell application "System Events"
+    set frontApp to name of first application process whose frontmost is true
+  end tell
+
+  if frontApp is "Google Chrome" then
+    tell application "Google Chrome"
+      if (count of windows) > 0 and (count of tabs of front window) > 1 then
+        close active tab of front window
+      else
+        close front window
+      end if
+    end tell
+# else
+#    try
+#      tell application frontApp to close front window
+#    end try
+  end if
+' '''
+cmd-shift-q = '''exec-and-forget osascript -e '
+tell application "System Events"
+    set frontApp to name of first application process whose frontmost is true
+    tell process frontApp
+        try
+            set win to front window
+            perform action "AXPress" of (first button whose subrole is "AXCloseButton") of win
+        end try
+    end tell
+end tell
+' '''
+ctrl-t = '''exec-and-forget osascript -e '
+  tell application "System Events"
+    set frontApp to name of first application process whose frontmost is true
+  end tell
+
+  if frontApp is "Google Chrome" then
+    tell application "Google Chrome"
+      make new tab at end of tabs of front window
+      activate
+    end tell
+  end if
+' '''
+# See: https://nikitabobko.github.io/AeroSpace/goodies#open-a-new-window-with-applescript
+cmd-enter = '''exec-and-forget osascript -e '
+tell application "iTerm"
+  activate
+  try
+    set newWindow to (create window with default profile)
+  on error
+    set newTab to (create tab with default profile)
+  end try
+end tell'
+    '''
+
+cmd-h = "focus left"
+cmd-j = "focus down"
+cmd-k = "focus up"
+cmd-l = "focus right"
+cmd-left = "focus left"
+cmd-down = "focus down"
+cmd-up = "focus up"
+cmd-right = "focus right"
+
+# Move focused window
+cmd-shift-h = "move left"
+cmd-shift-j = "move down"
+cmd-shift-k = "move up"
+cmd-shift-l = "move right"
+cmd-shift-left = "move left"
+cmd-shift-down = "move down"
+cmd-shift-up = "move up"
+cmd-shift-right = "move right"
+
+# Split orientation
+cmd-n = "split horizontal"
+cmd-v = "split vertical"
+
+# Fullscreen
+cmd-f = "fullscreen"
+
+# Layouts
+cmd-s = "layout v_accordion"
+cmd-w = "layout h_accordion"
+cmd-e = "layout tiles horizontal vertical"
+
+# Toggle tiling / floating
+cmd-shift-space = "layout floating tiling"
+
+# Toggle focus between tiling/floating (not directly supported)
+# cmd-space = "focus mode_toggle"  # Currently not implemented in Aerospace
+
+# Focus parent (not supported)
+# cmd-a = "focus parent"
+
+# Workspaces
+cmd-1 = "workspace 1"
+cmd-2 = "workspace 2"
+cmd-3 = "workspace 3"
+cmd-4 = "workspace 4"
+cmd-5 = "workspace 5"
+cmd-6 = "workspace 6"
+cmd-7 = "workspace 7"
+cmd-8 = "workspace 8"
+cmd-9 = "workspace 9"
+cmd-0 = "workspace 10"
+
+cmd-shift-1 = "move-node-to-workspace 1"
+cmd-shift-2 = "move-node-to-workspace 2"
+cmd-shift-3 = "move-node-to-workspace 3"
+cmd-shift-4 = "move-node-to-workspace 4"
+cmd-shift-5 = "move-node-to-workspace 5"
+cmd-shift-6 = "move-node-to-workspace 6"
+cmd-shift-7 = "move-node-to-workspace 7"
+cmd-shift-8 = "move-node-to-workspace 8"
+cmd-shift-9 = "move-node-to-workspace 9"
+cmd-shift-0 = "move-node-to-workspace 10"
+
+# i3 wraps focus by default
+
+cmd-shift-c = 'reload-config'
+
+cmd-r = 'mode resize'
+
+[mode.resize.binding]
+h = 'resize width -50'
+k = 'resize height +50'
+j = 'resize height -50'
+l = 'resize width +50'
+enter = 'mode main'
+esc = 'mode main'
