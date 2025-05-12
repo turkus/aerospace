@@ -28,10 +28,10 @@ ctrl-w = '''exec-and-forget osascript -e '
         close front window
       end if
     end tell
-# else
-#    try
-#      tell application frontApp to close front window
-#    end try
+  # else
+  #    try
+  #      tell application frontApp to close front window
+  #    end try
   end if
 ' '''
 cmd-shift-q = '''exec-and-forget osascript -e '
