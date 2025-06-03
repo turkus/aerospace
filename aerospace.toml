@@ -12,6 +12,16 @@ enable-normalization-opposite-orientation-for-nested-containers = false
 # Mouse follows focus when focused monitor changes
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
+[workspace-to-monitor-force-assignment]
+1 = 1
+2 = 'secondary'
+3 = 'secondary'
+4 = 'secondary'
+5 = 'secondary'
+6 = 'secondary'
+7 = 'secondary'
+8 = 'secondary'
+
 [mode.main.binding]
 ctrl-alt-l = '''exec-and-forget osascript -e '
 tell application "System Events" to sleep
